@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+  labels:
+    app: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kafka
+  replicas: 3
+  serviceName: zookeeper
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+      - name: zookeeper
+        image: confluentinc/cp-zookeeper:7.2.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: follower
+        - containerPort: 3888
+          name: election
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/zookeeper
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: zookeeper-data
