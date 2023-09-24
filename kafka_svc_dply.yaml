@@ -64,6 +64,8 @@ spec:
           value: PLAINTEXT
         - name: KAFKA_AUTO_CREATE_TOPICS
           value: "my-topic:1:1"
+        - name: ZOOKEEPER_SASL_ENABLED
+          value: "FALSE"
         resources:
           requests:
             cpu: 1000m
