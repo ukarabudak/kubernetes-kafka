@@ -49,7 +49,9 @@ spec:
           - name: ZOOKEEPER_LOG_DIR
             value: "/var/lib/zookeeper/log"
           - name: ZOOKEEPER_SERVER_ID
-            value: "1"  
+            value: "1"
+          - name: ZOOKEEPER_SASL_ENABLED
+            value: "FALSE"
         ports:
           - containerPort: 2181
         securityContext:
