@@ -55,7 +55,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: KAFKA_ZOOKEEPER_CONNECT
-          value: zookeeper:2181
+          value: http://zookeeper:2181
         - name: KAFKA_ADVERTISED_LISTENERS
           value: "PLAINTEXT://kafka:9092,TLS://kafka:9093"
         - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
