@@ -57,6 +57,8 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /var/lib/zookeeper
+      hostname: zookeeper
+      restartPolicy: Always
       volumes:
       - name: data
         persistentVolumeClaim:
