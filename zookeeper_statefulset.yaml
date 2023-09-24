@@ -10,15 +10,9 @@ metadata:
   namespace: test 
 spec:
   ports:
-    - name: "client"
+    - name: "zookeeper"
       port: 2181
       targetPort: 2181
-    - name: "follower"
-      port: 2888
-      targetPort: 2888
-    - name: "election"
-      port: 3888
-      targetPort: 3888
   selector:
     app: zookeeper
 ---
@@ -46,13 +40,18 @@ spec:
       - name: zookeeper
         image: confluentinc/cp-zookeeper:7.2.1
         imagePullPolicy: Always
+        env:
+          - name: TZ
+          - name: ZOOKEEPER_CLIENT_PORT
+            value: "2128"
+          - name: ZOOKEEPER_DATA_DIR
+            value: "/var/lib/zookeeper/data"
+          - name: ZOOKEEPER_LOG_DIR
+            value: "/var/lib/zookeeper/log"
+          - name: ZOOKEEPER_SERVER_ID
+            value: "1"  
         ports:
-        - containerPort: 2181
-          name: client
-        - containerPort: 2888
-          name: follower
-        - containerPort: 3888
-          name: election
+          - containerPort: 2181
         securityContext:
           runAsUser: 0
         volumeMounts:
