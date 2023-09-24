@@ -24,17 +24,17 @@ kind: StatefulSet
 metadata:
   name: zookeeper
   labels:
-    app: kafka
+    app: zookeeper
 spec:
   selector:
     matchLabels:
-      app: kafka
+      app: zookeeper
   replicas: 3
   serviceName: zookeeper
   template:
     metadata:
       labels:
-        app: kafka
+        app: zookeeper
     spec:
       containers:
       - name: zookeeper
