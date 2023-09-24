@@ -1,3 +1,30 @@
+##################################################
+# Zookeeper Service
+##################################################  
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+  namespace: test 
+spec:
+  ports:
+    - name: "client"
+      port: 2181
+      targetPort: 2181
+    - name: "follower"
+      port: 2888
+      targetPort: 2888
+    - name: "election"
+      port: 3888
+      targetPort: 3888
+  selector:
+    app: zookeeper
+---
+##################################################
+# Zookeeper StatefulSet
+################################################## 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -34,4 +61,5 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: zookeeper-data
+          claimName: zookeeper-pvc
+---
