@@ -1,55 +1,6 @@
 ##################################################
 # Zookeeper StatefulSet
 ################################################## 
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: zookeeper
-  labels:
-    app: zookeeper
-spec:
-  selector:
-    matchLabels:
-      app: zookeeper
-  replicas: 3
-  serviceName: zookeeper
-  template:
-    metadata:
-      labels:
-        app: zookeeper
-    spec:
-      containers:
-      - name: zookeeper
-        image: confluentinc/cp-zookeeper:7.2.1
-        imagePullPolicy: Always
-        env:
-          - name: TZ
-          - name: ZOOKEEPER_CLIENT_PORT
-            value: "2128"
-          - name: ZOOKEEPER_DATA_DIR
-            value: "/var/lib/zookeeper/data"
-          - name: ZOOKEEPER_LOG_DIR
-            value: "/var/lib/zookeeper/log"
-          - name: ZOOKEEPER_SERVER_ID
-            value: "1"
-          - name: ZOOKEEPER_SASL_ENABLED
-            value: "FALSE"
-        ports:
-          - containerPort: 2181
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - name: data
-          mountPath: /var/lib/zookeeper
-      hostname: zookeeper
-      restartPolicy: Always
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: zookeeper-pvc
-##################################################
-# Zookeeper StatefulSet
-################################################## 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
