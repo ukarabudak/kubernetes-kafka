@@ -1,0 +1,41 @@
+##################################################
+# Kafka PersistentVolume
+##################################################  
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-pv
+  namespace: test 
+  labels:
+    app: kafka
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /var/lib/kafka/
+---
+##################################################
+# Kafka PersistentVolumeClaims
+##################################################  
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kafka-pvc
+  namespace: test
+spec:
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels: 
+      app: kafka
+---
