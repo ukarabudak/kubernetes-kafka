@@ -1,0 +1,41 @@
+##################################################
+# Zookeeper PersistentVolume
+##################################################   
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zookeeper-pv
+  namespace: test
+  labels:
+    app: zookeeper
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /var/lib/zookeeper/
+---
+##################################################
+# Zookeeper PersistentVolumeClaims
+##################################################  
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zookeeper-pvc
+  namespace: test
+spec:
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels: 
+      app: zookeeper
+---
