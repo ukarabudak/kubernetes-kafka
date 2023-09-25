@@ -1,3 +1,6 @@
+##################################################
+# Kafka Statefulset
+##################################################  
 apiVersion: apps/v1
 kind: StatefulSet
 #kind: Deployment
